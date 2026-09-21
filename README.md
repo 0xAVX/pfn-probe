@@ -1,0 +1,39 @@
+# PFN Probe — measure only what matters
+
+Sequential feature acquisition with a STOP action. A case arrives partial;
+every unmeasured feature has a cost. TabPFN-3.5 predicts natively on partial
+rows; plausible outcomes come from hot-deck conditional sampling (nearest
+context neighbors on observed features — no fits, calibrated spread; an
+earlier TabPFN-imputation simulator proved overdispersed and was cut).
+VOI(j) = risk now − expected risk after measuring j − λ·cost(j).
+Order while max VOI > 0, else STOP. No learned acquisition policy.
+
+```python
+pb = Prober(Xctx, yctx, costs, cat_cols=[...])
+j, p, vois = pb.step(partial_row, known)  # j=None means STOP
+```
+
+Costs in this repo are illustrative (S6E9 survey/income-verification story).
+
+## Results (`figs/probe.csv`, 20 cases, S6E9)
+
+| strategy | accuracy | avg cost | avg tests | loss+cost |
+|---|---|---|---|---|
+| order-all | 0.95 | 22.0 | 10 | 22.05 |
+| cheapest-first | 0.95 | 22.0 | 10 | 22.05 |
+| random order | 0.95 | 22.0 | 10 | 22.05 |
+| **PFN Probe** | 0.85 | **3.95** | **2.0** | **4.10** |
+
+Pareto read: probe trades 0.10 accuracy for 5.6× lower measurement cost and
+wins the combined objective 5×. It does not beat full-information accuracy —
+it makes stopping defensible. Limitation: policy stops after ~2 tests on
+every row here; per-row feature identity wasn't logged, so adaptivity across
+rows is unproven in this run.
+
+## Reproduce
+
+```bash
+<venv-python> -m pytest tests/ -q
+<venv-python> experiments/run.py   # figs/probe.csv: probe vs all/cheapest/random
+<venv-python> demo/app.py          # case player (port 5004)
+```
