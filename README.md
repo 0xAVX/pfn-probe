@@ -33,6 +33,8 @@ policy matters, not just the budget: cheapest-2 collapses to 0.15.
 
 ## Reproduce
 
+Fresh-env verified 2026-09-22 (clean venv, `pip install -e .`, witness suite 2 passed in 18s CPU; TabPFN weights from public HF, no keys).
+
 ```bash
 pip install -e .   # Python 3.10+, torch, tabpfn==9.0.0
 # S6E9 data:
