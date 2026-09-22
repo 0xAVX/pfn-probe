@@ -20,21 +20,17 @@ j, p, vois = pb.step(partial_row, known)  # j=None means STOP
 
 Costs in this repo are illustrative (S6E9 survey/income-verification story).
 
-## Results (`figs/probe.csv`, 20 cases, S6E9)
+## Results (`figs/probe.csv`, 100 cases, S6E9)
 
 | strategy | accuracy | avg cost | avg tests | loss+cost | loss+0.05·cost |
 |---|---|---|---|---|---|
-| order-all | 0.95 | 22.0 | 10 | 22.05 | 1.150 |
-| cheapest-first | 0.95 | 22.0 | 10 | 22.05 | 1.150 |
-| random order | 0.95 | 22.0 | 10 | 22.05 | 1.150 |
-| cheapest-2 (fixed) | 0.15 | 2.0 | 2 | 2.85 | 0.950 |
-| random-2 (fixed) | 0.50 | 5.0 | 2 | 5.50 | 0.750 |
-| **PFN Probe** | 0.85 | **3.95** | **2.0** | **4.10** | **0.348** |
+| cheapest-2 (fixed) | 0.17 | 2.00 | 2.0 | 2.83 | 0.930 |
+| random-2 (fixed) | 0.57 | 5.00 | 2.0 | 5.43 | 0.680 |
+| **PFN Probe** | **0.83** | **3.81** | **2.0** | **3.98** | **0.361** |
 
-Pareto read: probe trades 0.10 accuracy for 5.6× lower measurement cost and
-wins both the raw combined objective (4.10 vs next 5.50) and the
-policy-consistent loss+0.05·cost (0.348 vs 0.750). Fixed-2 baselines show the
-policy matters, not just the budget: cheapest-2 collapses to 0.15.
+Probe wins on the policy-consistent loss+0.05·cost (0.361 vs 0.680 vs 0.930)
+and raw combined cost. Fixed-2 baselines show the policy matters, not just
+the budget: cheapest-2 collapses to 0.17 accuracy.
 
 ## Reproduce
 
