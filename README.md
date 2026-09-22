@@ -17,23 +17,27 @@ Costs in this repo are illustrative (S6E9 survey/income-verification story).
 
 ## Results (`figs/probe.csv`, 20 cases, S6E9)
 
-| strategy | accuracy | avg cost | avg tests | loss+cost |
-|---|---|---|---|---|
-| order-all | 0.95 | 22.0 | 10 | 22.05 |
-| cheapest-first | 0.95 | 22.0 | 10 | 22.05 |
-| random order | 0.95 | 22.0 | 10 | 22.05 |
-| **PFN Probe** | 0.85 | **3.95** | **2.0** | **4.10** |
+| strategy | accuracy | avg cost | avg tests | loss+cost | loss+0.05·cost |
+|---|---|---|---|---|---|
+| order-all | 0.95 | 22.0 | 10 | 22.05 | 1.150 |
+| cheapest-first | 0.95 | 22.0 | 10 | 22.05 | 1.150 |
+| random order | 0.95 | 22.0 | 10 | 22.05 | 1.150 |
+| cheapest-2 (fixed) | 0.15 | 2.0 | 2 | 2.85 | 0.950 |
+| random-2 (fixed) | 0.50 | 5.0 | 2 | 5.50 | 0.750 |
+| **PFN Probe** | 0.85 | **3.95** | **2.0** | **4.10** | **0.348** |
 
 Pareto read: probe trades 0.10 accuracy for 5.6× lower measurement cost and
-wins the combined objective 5×. It does not beat full-information accuracy —
-it makes stopping defensible. Limitation: policy stops after ~2 tests on
-every row here; per-row feature identity wasn't logged, so adaptivity across
-rows is unproven in this run.
+wins both the raw combined objective (4.10 vs next 5.50) and the
+policy-consistent loss+0.05·cost (0.348 vs 0.750). Fixed-2 baselines show the
+policy matters, not just the budget: cheapest-2 collapses to 0.15.
 
 ## Reproduce
 
 ```bash
+pip install -e .   # Python 3.10+, torch, tabpfn==9.0.0
+# S6E9 data:
+kaggle competitions download -c playground-series-s6e9 -p data && unzip -o data/*.zip -d data/
 <venv-python> -m pytest tests/ -q
-<venv-python> experiments/run.py   # figs/probe.csv: probe vs all/cheapest/random
+<venv-python> experiments/run.py   # figs/probe.csv
 <venv-python> demo/app.py          # case player (port 5004)
 ```

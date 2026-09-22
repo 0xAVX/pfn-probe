@@ -10,17 +10,12 @@ import pandas as pd
 from flask import Flask, request, render_template_string
 from sklearn.model_selection import train_test_split
 
-sys.path.insert(0, "/home/dead/pfn-probe/src")
-sys.path.insert(0, "/home/dead/playground-series-s6e9")
+from probe.config import CATS, COSTS, FREE
 from probe.engine import Prober
-from src.ev import load, stratified_subsample
-
-import sys as _s
-_s.path.insert(0, "/home/dead/pfn-probe/experiments")
-from run import CATS, COSTS, FREE, decide
+from probe.data import load_s6e9 as load, stratified_subsample
 
 print("fitting prober...", flush=True)
-X, y, _, _, _ = load("/home/dead/playground-series-s6e9/data")
+X, y, _, _, _ = load("data")
 Xs, ys = stratified_subsample(X, y, 1500, seed=0)
 Xctx, Xte, yctx, yte = train_test_split(Xs, ys, test_size=30, stratify=ys,
                                         random_state=1)
