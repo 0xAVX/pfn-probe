@@ -1,7 +1,9 @@
 """PFN Probe engine: sequential feature acquisition with STOP.
 
-Same TabPFN family twice: predictor (handles NaN natively) + conditional
-simulator (impute_column per candidate). VOI(j) = R(x_O) - E[R(x_O,x_j)] - λC_j
+TabPFN is the decision model: it predicts natively on partial rows and
+evaluates expected decision value. Candidate outcomes come from a
+nearest-neighbor hot-deck sampler over context rows (no fits, calibrated
+spread) — NOT a TabPFN simulator. VOI(j) = R(x_O) - E[R(x_O,x_j)] - λC_j
 with Bayes risk R under asymmetric error costs. STOP when max VOI <= 0.
 """
 from __future__ import annotations

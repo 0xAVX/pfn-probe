@@ -69,7 +69,7 @@ def main():
     Path("figs").mkdir(exist_ok=True)
     X, y, _, _, _ = load("data")
     Xs, ys = stratified_subsample(X, y, 2000, seed=SEED)
-    Xctx, Xte, yctx, yte = train_test_split(Xs, ys, test_size=20,
+    Xctx, Xte, yctx, yte = train_test_split(Xs, ys, test_size=100,
                                             stratify=ys, random_state=1)
     pb = Prober(Xctx.reset_index(drop=True), yctx, COSTS, cat_cols=CATS,
                 lam=0.05, seed=SEED)
@@ -77,7 +77,7 @@ def main():
     cols = ["row", "strategy", "correct", "cost", "n_tests", "total"]
     for i in range(len(Xte)):
         full = Xte.iloc[i]
-        for mode in ["probe", "all", "cheapest", "random", "cheapest2", "random2"]:
+        for mode in ["probe", "cheapest2", "random2"]:
             ok, cost, n, tot = run_row(pb, full, int(yte[i]), mode)
             recs.append((i, mode, ok, cost, n, tot))
             print(f"row {i} {mode}: ok={ok} cost={cost} n={n}", flush=True)
