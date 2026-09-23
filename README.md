@@ -3,7 +3,8 @@
 > **Why this matters (20s):** Every medical test or survey question costs
 > money. Probe asks TabPFN what each unmeasured feature is worth *before*
 > measuring it, orders the best deal, and STOPs when nothing is worth the
-> price — 0.85 accuracy at 3.95 cost vs 0.95 at 22.0 for measure-everything.
+> price — 0.83 accuracy at 3.81 cost vs 0.57 at 5.00 for fixed random-2,
+> winning loss+0.05·cost 0.361 vs 0.680.
 
 Sequential feature acquisition with a STOP action. A case arrives partial;
 every unmeasured feature has a cost. TabPFN-3.5 predicts natively on partial
