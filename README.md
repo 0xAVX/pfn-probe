@@ -6,6 +6,8 @@
 > price — 0.83 accuracy at 3.81 cost vs 0.57 at 5.00 for fixed random-2,
 > winning loss+0.05·cost 0.361 vs 0.680.
 
+![accuracy-cost race](figs/race.gif)
+
 Sequential feature acquisition with a STOP action. A case arrives partial;
 every unmeasured feature has a cost. TabPFN-3.5 predicts natively on partial
 rows; plausible outcomes come from hot-deck conditional sampling (nearest
