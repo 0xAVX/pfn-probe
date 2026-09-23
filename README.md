@@ -31,9 +31,11 @@ Costs in this repo are illustrative (S6E9 survey/income-verification story).
 | random-2 (fixed) | 0.57 | 5.00 | 2.0 | 5.43 | 0.680 |
 | **PFN Probe** | **0.83** | **3.81** | **2.0** | **3.98** | **0.361** |
 
-Probe wins on the policy-consistent loss+0.05·cost (0.361 vs 0.680 vs 0.930)
-and raw combined cost. Fixed-2 baselines show the policy matters, not just
-the budget: cheapest-2 collapses to 0.17 accuracy.
+Probe wins the policy-consistent loss + 0.05·cost objective (0.361 vs 0.680
+vs 0.930) while achieving substantially higher accuracy than either fixed-2
+baseline. On raw loss+cost cheapest-2 wins (2.83), but at 0.17 accuracy — the
+weighted objective is the policy decision rule. Fixed-2 baselines show the
+policy matters, not just the budget: cheapest-2 collapses to 0.17 accuracy.
 
 ## Reproduce
 
